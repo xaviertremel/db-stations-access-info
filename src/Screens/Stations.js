@@ -1,19 +1,33 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 class Stations extends React.Component {
   state = {
     stations: [],
     filteredStations: [],
-    searchTerm: '',
   }
 
-  render = () => 
-    <div className="Stations">
-      <input type="text" value={this.state.searchTerm} onChange={(e) => this.handleChange(e.target.value)} />
-      <div className="StationsList">
-        {this.state.filteredStations.map(station => <p>{station.name}</p>)}
+  render = () => {
+    return (
+      <div className="Stations">
+        <SearchField 
+          onClickSearch={(searchTerm) => this.setState({ 
+            filteredStations: this.state.stations.filter(station => station.name.toLowerCase().includes(searchTerm.toLowerCase())),
+          })}
+        />
+        <ul className="StationsList">
+          {this.state.stations.length === 0 && <li>Loading...</li>}
+          {this.state.filteredStations.map(station => 
+            <li key={station.number}>
+              <Link to={`/station/${station.number}`}>
+                {station.name}
+              </Link>
+            </li>
+          )}
+        </ul>
       </div>
-    </div>
+    )
+  }
 
   componentDidMount = () => {
     fetch('https://api.deutschebahn.com/stada/v2/stations', {
@@ -27,10 +41,19 @@ class Stations extends React.Component {
       .then(({ result }) => this.setState({ stations: result, filteredStations: result }))
       .catch(error => console.error('Error:', error));
   }
+}
 
-  handleSearch = (searchTerm) => {
-    this.setState({ searchTerm })
+class SearchField extends React.Component {
+  state = {
+    searchTerm: '',
   }
+
+  render = () => (
+    <div className="SearchField">
+      <input type="text" value={this.state.searchTerm} onChange={(e) => this.setState({ searchTerm: e.target.value })} />
+      <button onClick={() => this.props.onClickSearch(this.state.searchTerm)}>Search</button>
+    </div>
+  )
 }
 
 export default Stations
