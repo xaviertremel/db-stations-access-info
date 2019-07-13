@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 class Stations extends React.Component {
   state = {
+    //TODO use redux to make the stations persist
     stations: [],
     filteredStations: [],
   }
@@ -12,7 +13,9 @@ class Stations extends React.Component {
       <div className="Stations">
         <SearchField 
           onClickSearch={(searchTerm) => this.setState({ 
-            filteredStations: this.state.stations.filter(station => station.name.toLowerCase().includes(searchTerm.toLowerCase())),
+            filteredStations: (searchTerm === '')
+              ? this.state.stations
+              : this.state.stations.filter(station => station.name.toLowerCase().includes(searchTerm.toLowerCase()))
           })}
         />
         <ul className="StationsList">
@@ -43,17 +46,16 @@ class Stations extends React.Component {
   }
 }
 
-class SearchField extends React.Component {
-  state = {
-    searchTerm: '',
-  }
+const SearchField = ({ onClickSearch }) => {
+  const [searchTerm, setSearchTerm] = useState('')
 
-  render = () => (
+  return (
     <div className="SearchField">
-      <input type="text" value={this.state.searchTerm} onChange={(e) => this.setState({ searchTerm: e.target.value })} />
-      <button onClick={() => this.props.onClickSearch(this.state.searchTerm)}>Search</button>
+      <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <button onClick={() => onClickSearch(searchTerm)}>Search</button>
     </div>
   )
 }
 
 export default Stations
+
