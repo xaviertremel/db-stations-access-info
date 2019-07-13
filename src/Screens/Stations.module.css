@@ -1,0 +1,60 @@
+.Stations {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.StationsContainer {
+  max-height: 500px;
+  max-width: 500px;
+}
+
+.SearchField {
+  width: 100%;
+  height: 30px;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.SearchField > input {
+  height: 26px;
+  margin-right: 10px;
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+
+.SearchField > button {
+  height: 30px;
+  border: 1px solid grey;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.StationsList {
+  list-style-type: none;
+  overflow-y: auto;
+  height: 400px;
+  padding: 0px;
+  margin: 10px 0px;
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+
+.Station {
+  padding: 5px;
+}
+
+.Station > a {
+  text-decoration: none;
+}
+
+.Station:nth-child(2n + 1) {
+  background-color: lightgrey;
+}
+
+.Station:hover {
+  font-size: 13px;
+  transition: font-size 300ms;
+}

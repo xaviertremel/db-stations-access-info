@@ -1,31 +1,33 @@
 import React from 'react'
 
+import styles from './Station.module.css'
+
 class Station extends React.Component {
   state = { station: null }
 
   render = () => (
-    <div className="Station">
+    <div className={styles.Station}>
       {this.state.station
-        ? <React.Fragment>
-            <div className="StationName">
+        ? <div className={styles.StationContainer}>
+            <div className={styles.StationName}>
               {this.state.station.name}
             </div>
-            <ul className="Facilities">
+            <ul className={styles.Facilities}>
               {this.state.station.facilities.map(facility =>
-                <li className="Facility" key={facility.equipmentnumber}>
+                <li className={styles.Facility} key={facility.equipmentnumber}>
                   <div className="Type">
                     {facility.type}
                   </div>
-                  <div className="Description">
+                  <div className={styles.Description}>
                     {facility.description}
                   </div>
-                  <div className="Status">
+                  <div className={styles.Status}>
                     {facility.state}
                   </div>
                 </li>
               )}
             </ul>
-          </React.Fragment>
+          </div>
         : <p>Loading...</p>
       }
     </div>
@@ -36,7 +38,7 @@ class Station extends React.Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 584de6f81a61906e18ed0d2602742f09'
+        'Authorization': 'Bearer <YOUR_TOKEN>'
       }
     })
       .then(res => res.json())

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import styles from './Stations.module.css'
+
 class Stations extends React.Component {
   state = {
     //TODO use redux to make the stations persist
@@ -10,24 +12,26 @@ class Stations extends React.Component {
 
   render = () => {
     return (
-      <div className="Stations">
-        <SearchField 
-          onClickSearch={(searchTerm) => this.setState({ 
-            filteredStations: (searchTerm === '')
-              ? this.state.stations
-              : this.state.stations.filter(station => station.name.toLowerCase().includes(searchTerm.toLowerCase()))
-          })}
-        />
-        <ul className="StationsList">
-          {this.state.stations.length === 0 && <li>Loading...</li>}
-          {this.state.filteredStations.map(station => 
-            <li key={station.number}>
-              <Link to={`/station/${station.number}`}>
-                {station.name}
-              </Link>
-            </li>
-          )}
-        </ul>
+      <div className={styles.Stations}>
+        <div className={styles.StationsContainer}>
+          <SearchField 
+            onClickSearch={(searchTerm) => this.setState({ 
+              filteredStations: (searchTerm === '')
+                ? this.state.stations
+                : this.state.stations.filter(station => station.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            })}
+          />
+          <ul className={styles.StationsList}>
+            {this.state.stations.length === 0 && <li>Loading...</li>}
+            {this.state.filteredStations.map(station => 
+              <li key={station.number} className={styles.Station}>
+                <Link to={`/station/${station.number}`} className={styles.StationLink}>
+                  {station.name}
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     )
   }
@@ -37,7 +41,7 @@ class Stations extends React.Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 584de6f81a61906e18ed0d2602742f09'
+        'Authorization': 'Bearer <YOUR_TOKEN>'
       }
     })
       .then(res => res.json())
@@ -50,7 +54,7 @@ const SearchField = ({ onClickSearch }) => {
   const [searchTerm, setSearchTerm] = useState('')
 
   return (
-    <div className="SearchField">
+    <div className={styles.SearchField}>
       <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       <button onClick={() => onClickSearch(searchTerm)}>Search</button>
     </div>

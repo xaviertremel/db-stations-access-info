@@ -1,0 +1,40 @@
+.Station {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.StationContainer {
+  max-height: 500px;
+  max-width: 500px;
+}
+
+.StationName {
+  text-align: center;
+}
+
+.Facilities {
+  list-style-type: none;
+  overflow-y: auto;
+  height: 400px;
+  margin: 10px 0px;
+  padding: 0px;
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+
+.Facility {
+  display: grid;
+  grid-template-columns: 3fr 5fr 2fr;
+  padding: 5px;
+}
+
+.Facility:nth-child(2n + 1) {
+  background-color: lightgrey;
+}
+
+.Status {
+  text-align: right;
+}
