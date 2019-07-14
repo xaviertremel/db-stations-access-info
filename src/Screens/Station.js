@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Facility from '../Components/Facility'
+
 import styles from './Station.module.css'
 
 class Station extends React.Component {
@@ -14,17 +16,7 @@ class Station extends React.Component {
             </div>
             <ul className={styles.Facilities}>
               {this.state.station.facilities.map(facility =>
-                <li className={styles.Facility} key={facility.equipmentnumber}>
-                  <div className="Type">
-                    {facility.type}
-                  </div>
-                  <div className={styles.Description}>
-                    {facility.description}
-                  </div>
-                  <div className={styles.Status}>
-                    {facility.state}
-                  </div>
-                </li>
+                <Facility facility={facility} />
               )}
             </ul>
           </div>
@@ -45,7 +37,6 @@ class Station extends React.Component {
       .then((result) => this.setState({ station: result }))
       .catch(error => console.error('Error:', error));
   }
-
 }
 
 export default Station

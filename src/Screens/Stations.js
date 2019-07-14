@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
+
+import SearchField from '../Components/SearchField'
 
 import styles from './Stations.module.css'
 
 class Stations extends React.Component {
   state = {
-    //TODO use redux to make the stations persist
+    //TODO use redux or sessionStorage/indexedDB to make the stations persist
     stations: [],
     filteredStations: [],
   }
 
+  //TODO virtualize list rendering to improve performance
   render = () => {
     return (
       <div className={styles.Stations}>
@@ -48,17 +51,6 @@ class Stations extends React.Component {
       .then(({ result }) => this.setState({ stations: result, filteredStations: result }))
       .catch(error => console.error('Error:', error));
   }
-}
-
-const SearchField = ({ onClickSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('')
-
-  return (
-    <div className={styles.SearchField}>
-      <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-      <button onClick={() => onClickSearch(searchTerm)}>Search</button>
-    </div>
-  )
 }
 
 export default Stations

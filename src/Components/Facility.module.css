@@ -1,0 +1,11 @@
+.Facility {
+  display: grid;
+  grid-template-columns: 3fr 5fr 2fr;
+  align-items: center;
+  height: 30px;
+  padding: 0px 5px;
+}
+
+.Status {
+  text-align: right;
+}
