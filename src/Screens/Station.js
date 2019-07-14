@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Facility from '../Components/Facility'
+import { DB_API_TOKEN } from '../API'
 
 import styles from './Station.module.css'
 
@@ -30,7 +31,7 @@ class Station extends React.Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer <YOUR_TOKEN>'
+        'Authorization': `Bearer ${DB_API_TOKEN}`
       }
     })
       .then(res => res.json())

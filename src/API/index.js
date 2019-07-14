@@ -1,0 +1,1 @@
+export const DB_API_TOKEN = '<YOUR_TOKEN>'

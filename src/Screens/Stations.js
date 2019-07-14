@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import SearchField from '../Components/SearchField'
+import { DB_API_TOKEN } from '../API'
 
 import styles from './Stations.module.css'
 
@@ -44,7 +45,7 @@ class Stations extends React.Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer <YOUR_TOKEN>'
+        'Authorization': `Bearer ${DB_API_TOKEN}`
       }
     })
       .then(res => res.json())
